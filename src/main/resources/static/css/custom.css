@@ -1,0 +1,15 @@
+.fa-trash-alt:hover {
+    color: red;
+}
+
+.fa-pencil-alt:hover {
+    color: #0098da;
+}
+
+.fa-external-link-alt:hover {
+    color: green;
+}
+
+.logo {
+    margin-top: -100px;
+}

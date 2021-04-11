@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="scripts :: css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div th:replace="components/header :: header('Ops!')"></div>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-1 col-sm-2 col-md-3"></div>
+            <div class="col-10 col-sm-8 col-md-6">
+                <div class="jumbotron">
+
+                    <h1 class="display-4">Ops!</h1>
+                    <p class="lead">A página que você está procurando não se encontra por aqui</p>
+                    <hr class="my-4">
+                    <p>Será que não é estas <a th:href="@{/sorteios}">aqui?</a></p>
+                </div>
+            </div>
+            <div class="col-1 col-sm-2 col-md-3"></div>
+        </div>
+    </div>
+</body>
+
+</html>

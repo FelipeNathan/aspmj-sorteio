@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sorteio ASMJ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="scripts :: css" />
+</head>
+
+<body>
+    <div th:replace="components/header :: header(${raffle.title})"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron bg-primary text-warning p-5">
+                    <div th:if="${#strings.isEmpty(error)}">
+                        <h1 class="display-4">Parabéns!</h1>
+                        <p class="lead">
+                        <p class="h3">Você já está participando do sorteio, o seu número da sorte é
+                            [[${participant_number}]]!
+                        </p>
+                        </p>
+                        <hr class="my-4">
+                        <p>Também enviamos ao email inserido no cadastro.</p>
+                        <p>Agora é só esperar a data do sorteio e boa sorte!.</p>
+                    </div>
+
+                    <div th:unless="${#strings.isEmpty(error)}">
+                        <h1 class="display-4" th:text="${error_title}"></h1>
+                        <p class="lead">
+                        <p class="h3" th:text="${error}"></p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="scripts :: js" />
+</body>
+
+</html>

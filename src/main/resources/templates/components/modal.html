@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body th:fragment="modal">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-warning text-primary font-weight-bold" id="modal-confirm">Confirmar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            var openModal = (title, text, fn) => {
+                console.log(`Título do modal: ${title}`);
+                console.log(`Texto do modal: ${text}`);
+
+                $('.modal-title').html(title);
+                $('.modal-body').html(text);
+                $('#modal-confirm').click(fn);
+        
+                $('.modal').modal('show');
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio ASMJ</title>
+    <th:block th:replace="scripts :: css" />
+</head>
+
+<body>
+    <div th:replace="components/header :: header('Sorteios')"></div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 text-center justify-content-center" th:if="${#lists.isEmpty(raffles)}">
+                <div class="alert alert-primary" role="alert">
+                    Nenhum sorteio cadastrado
+                </div>
+            </div>
+
+            <table class="table table-hover table-responsive" th:unless="${#lists.isEmpty(raffles)}">
+                <thead class="bg-primary text-warning">
+                    <tr>
+                        <th scope="col" hidden th:text="'ID'"></th>
+                        <th scope="col" th:text="'Sorteio'" style="width: 50%" class="text-center"></th>
+                        <th scope="col" th:text="'Data limite para cadastro'" style="width: 25%"
+                            class="d-none d-md-table-cell text-center"></th>
+                        <th scope="col" th:text="'Data do sorteio'" style="width: 25%" class="text-center"></th>
+                        <th scope="col" style="width: 5%"></th>
+                        <th scope="col" style="width: 5%"></th>
+                        <th scope="col" style="width: 5%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="r : ${raffles}">
+                        <td scope="row" hidden th:text="${r.id}"></td>
+                        <td class="row">
+                            <div class="col-12 col-md-10">
+                                [[${r.title}]]
+                                <span class="badge rounded-pill bg-primary" data-toggle="tooltip" data-placement="right"
+                                    th:title="${r.participantsCount} + ' pessoa(s) cadastrada(s) neste sorteio'"
+                                    th:text="${r.participantsCount}"></span>
+                            </div>
+
+                            <div class="col-12 col-md-2">
+                                <a th:href="@{/sorteios/{id}/sortear(id=${r.id})}"
+                                    class="btn btn-warning btn-sm text-primary font-weight-bold me-5"
+                                    th:classappend="${!r.canRaffle} ? 'disabled' : ''"> Sortear </a>
+                            </div>
+                        </td>
+                        <td class="d-none d-md-table-cell text-center">
+                            [[${#dates.format(r.beginDate, 'dd/MM/yyyy')}]] à [[${#dates.format(r.endDate, 'dd/MM/yyyy')}]]
+                        </td>
+                        <td th:text="${#dates.format(r.raffleDate, 'dd/MM/yyyy')}" class="text-center"></td>
+
+                        <th>
+                            <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Excluir"
+                                style="cursor: pointer" th:onclick="onRemove([[${r.id}]], [[${r.title}]])"></i>
+                        </th>
+                        <th>
+                            <a th:href="@{/sorteios/editar/{id}(id=${r.id})}" class="text-dark">
+                                <i class="fas fa-pencil-alt" data-toggle="tooltip" data-placement="top" title="Editar"
+                                    style="cursor: pointer"></i>
+                            </a>
+                        </th>
+                        <th>
+                            <a th:href="@{/sorteios/participar/{id}(id=${r.id})}" class="text-dark">
+                                <i class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="left"
+                                    title="Abrir link para cadastro de participantes" style="cursor: pointer"></i>
+                            </a>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/sorteios/novo}" class="btn btn-warning text-primary font-weight-bold">Novo sorteio</a>
+    </div>
+
+    <th:block th:replace="scripts :: js" />
+    <th:block th:replace="components/modal :: modal" />
+
+    <form id="delete-form" th:method="delete">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+
+    <script>
+        function onRemove(raffleId, raffleName) {
+            openModal('Sorteio', `Deseja remover o sorteio ${raffleName}?`, (e) => {
+                var form = $('#delete-form');
+                form.attr('action', "/sorteios/remover/" + raffleId);
+                form.submit();
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body th:fragment="form">
+    <input type="hidden" id="raffleId" name="raffleId" th:value="${raffle.id}">
+    <input type="hidden" th:field="*{id}">
+
+    <div class="d-flex justify-content-center">
+        <p class="font-weight-bold text-warning h5" th:text="'Para participar, preencha os campos a seguir'"></p>
+    </div>
+
+    <div class="form-group">
+        <label th:text="'Nome:'" for="name"></label>
+        <input th:field="*{name}" th:errorclass="is-invalid" type="text" class="form-control" required />
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></p>
+    </div>
+
+    <div class="form-group">
+        <label th:text="'Telefone:'" for="phone"></label>
+        <input th:field="*{phone}" th:errorclass="is-invalid" type="text" class="form-control" required />
+        <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="invalid-feedback"></p>
+    </div>
+
+    <div class="form-group">
+        <label th:text="'E-mail:'" for="email"></label>
+        <input th:field="*{email}" th:errorclass="is-invalid" type="text" class="form-control" required />
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></p>
+    </div>
+</body>
+
+</html>

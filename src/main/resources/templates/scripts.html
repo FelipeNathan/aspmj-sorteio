@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<th:block th:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-datepicker3.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-datepicker3.standalone.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fontawesome.all.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</th:block>
+
+<th:block th:fragment="js">
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/fontawesome.all.min.js}"></script>
+    <script th:src="@{/js/bootstrap/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{/locales/bootstrap-datepicker.pt-BR.min.js}"></script>
+    <script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'dd/mm/yyyy'
+    });
+
+    $(() =>  $('[data-toggle="tooltip"]').tooltip());
+    </script>
+</th:block>
+</body>
+</html>
