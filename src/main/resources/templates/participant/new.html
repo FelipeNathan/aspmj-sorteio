@@ -23,6 +23,12 @@
         <div class="col-1 col-sm-2 col-md-3"></div>
     </div>
     <th:block th:replace="scripts :: js" />
+    <script th:src="@{/js/jquery.mask.min.js}"> </script>
+    <script>
+        $(document).ready(() => {
+            $('.phone').mask('(00) 00000-0000');
+        })
+    </script>
 </body>
 
 </html>
