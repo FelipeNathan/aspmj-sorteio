@@ -40,5 +40,5 @@ data class RaffleVO(
         get() = participants.count()
 
     val canRaffle: Boolean
-        get() = Date().before(raffleDate)
+        get() = (Date().before(beginDate)) || Date().before(raffleDate)
 }

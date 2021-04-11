@@ -6,30 +6,34 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
+@EnableWebSecurity
 class SpringSecurityConfig(private val appUserDetailsService: AppUserDetailsService) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
 
         http?.authorizeRequests()
-            ?.antMatchers(
-                "/participantes",
-                "/participantes/**",
-                "/sorteios/participar",
-                "/sorteios/participar/**",
-            )
-            ?.permitAll()
-            ?.and()
-            ?.authorizeRequests()
+                ?.antMatchers(
+                    "/login",
+                    "/participantes",
+                    "/participantes/**",
+                    "/sorteios/participar",
+                    "/sorteios/participar/**",
+                )
+                ?.permitAll()
             ?.anyRequest()
-            ?.authenticated()
+                ?.authenticated()
             ?.and()
             ?.formLogin()
+                ?.loginPage("/login")
+                ?.permitAll()
             ?.and()
-            ?.logout()?.permitAll()
+            ?.logout()
+                ?.permitAll()
     }
 
     override fun configure(web: WebSecurity?) {
