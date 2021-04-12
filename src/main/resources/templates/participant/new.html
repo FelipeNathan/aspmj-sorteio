@@ -9,14 +9,15 @@
 </head>
 
 <body>
-    <div th:replace="components/header :: header(${raffle.title})"></div>
+    <div th:replace="components/header :: header(${viewing == true ? participant.name : raffle.title})"></div>
     <div class="row">
         <div class="col-1 col-sm-2 col-md-3"></div>
         <div class="col-10 col-sm-8 col-md-6 bg-primary text-warning px-5 pb-5 pt-4">
             <form action="#" th:action="@{/participantes/novo}" th:object="${participant}" method="post" novalidate>
                 <div th:include="participant/form :: form"></div>
                 <div class="d-flex justify-content-end">
-                    <input type="submit" value="Cadastrar" class="btn btn-warning text-primary font-weight-bold" />
+                    <input type="submit" value="Cadastrar" class="btn btn-warning text-primary font-weight-bold" th:unless="${viewing == true}"/>
+                    <input type="button" value="Voltar" class="btn btn-outline-warning" th:if="${viewing == true}" onclick="javascript:window.history.back()"/>
                 </div>
             </form>
         </div>

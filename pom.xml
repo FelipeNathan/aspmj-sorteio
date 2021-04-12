@@ -179,7 +179,9 @@
             </activation>
             <properties>
                 <flyway.url>${env.DB_URL}</flyway.url>
+                <!--suppress UnresolvedMavenProperty -->
                 <flyway.user>${env.DB_USERNAME}</flyway.user>
+                <!--suppress UnresolvedMavenProperty -->
                 <flyway.password>${env.DB_PASSWORD}</flyway.password>
             </properties>
         </profile>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface RaffleParticipantRepository : JpaRepository<RaffleParticipant, UUID> {
+interface RaffleParticipantRepository : JpaRepository<RaffleParticipant, Long> {
 
     fun existsByPhoneAndRaffle(phone: String, raffle: Raffle): Boolean
 

@@ -2,16 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body th:fragment="header(title)">
-    <div class="p-2 mb-5 bg-primary text-light">
-        <div class="d-flex justify-content-center">
-            <h2 class="font-weight-bold text-warning" th:text="${title}"></h2>
-        </div>
-        <div class="d-flex d-flex justify-content-end">
-            <form th:action="@{/logout}" th:method="post">
-                <input type="submit" value="Sair" class="btn btn-warning btn-sm text-primary font-weight-bold">
-            </form>
-        </div>
-    </div>
+    <nav class="navbar bg-primary text-light">
+        <span></span>
+        <h2 class="font-weight-bold text-warning" th:text="${title}"></h2>
+        <form th:action="@{/logout}" th:method="post">
+            <input type="submit" value="Sair" class="btn btn-warning btn-sm text-primary font-weight-bold">
+        </form>
+    </nav>
     <div class="d-flex justify-content-center justify-content-md-start ">
         <img th:src="@{/images/aspmj-logo.png}" class="logo" />
     </div>

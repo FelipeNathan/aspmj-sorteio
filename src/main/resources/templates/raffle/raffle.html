@@ -43,13 +43,17 @@
                     <thead class="bg-primary text-warning">
                         <tr>
                             <th scope="col" th:text="'Número'" style="width: 10%" class="text-center"></th>
-                            <th scope="col" th:text="'Ganhador'" style="width: 90%" class="text-center"></th>
+                            <th scope="col" th:text="'Ganhador'" style="width: 80%" class="text-center"></th>
+                            <th scope="col" style="width: 10%" class="text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="w : ${#lists.sort(all_winners)}">
                             <td th:text="${w.id}"></td>
-                            <td th:text="${w.name}" class="text-center"></td>
+                            <td th:text="${w.name}" class="text-center">
+                            <td class="text-center">
+                                <a th:href="@{/participantes/{id}(id=${w.id})}"><i class="fas fa-eye text-dark"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
