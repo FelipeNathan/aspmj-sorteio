@@ -1,2 +1,0 @@
-INSERT INTO raffle (ID, title, begin_date, end_date, raffle_date) VALUES (RANDOM_UUID(), 'Dia das Mães', '2021-03-01 23:59:00', '2021-05-01 23:59:00', '2021-05-09 23:59:00');
-INSERT INTO user (ID, name, username, password) VALUES (1, 'Administrador', 'admin', '$2a$10$n/DUrEGm6t1CxQxw8gn8fu2XwBZ3T5kfnJ9e50QwRdu7oP1BrFg8.');

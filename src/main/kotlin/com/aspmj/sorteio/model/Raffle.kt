@@ -1,5 +1,6 @@
 package com.aspmj.sorteio.model
 
+import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 import java.util.*
 import javax.persistence.CascadeType
@@ -11,10 +12,13 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 
 @Entity
-data class Raffle(
+data class  Raffle(
+
     @field:Id
     @field:Type(type="uuid-char")
-    @field:GeneratedValue(strategy = GenerationType.AUTO)
+    @field:GeneratedValue(generator = "uuid2")
+    @field:GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @field:Column(columnDefinition = "CHAR(36)")
     val id: UUID? = null,
 
     @field:Column

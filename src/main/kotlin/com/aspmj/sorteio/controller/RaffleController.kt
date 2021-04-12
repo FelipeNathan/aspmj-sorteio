@@ -80,7 +80,7 @@ class RaffleController(
         try {
             val winner = raffleService.raffleParticipant(raffleId)
             model.addAttribute("winner", winner)
-        } catch (e: ParticipantAlreadyRaffledException) {
+        } catch (e: Exception) {
             model.addAttribute("error", e.message)
         }
 

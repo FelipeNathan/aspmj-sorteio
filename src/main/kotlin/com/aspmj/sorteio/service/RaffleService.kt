@@ -2,6 +2,7 @@ package com.aspmj.sorteio.service
 
 import com.aspmj.sorteio.exception.DateLimitExceedException
 import com.aspmj.sorteio.exception.DateLimitStillNotBegin
+import com.aspmj.sorteio.exception.NoParticipantsException
 import com.aspmj.sorteio.exception.ParticipantAlreadyExistsException
 import com.aspmj.sorteio.model.Raffle
 import com.aspmj.sorteio.model.RaffleParticipant
@@ -84,11 +85,12 @@ class RaffleService(
 
     fun raffleParticipant(raffleId: String): RaffleParticipantVO {
         val raffle = raffleRepository.getOne(UUID.fromString(raffleId))
-        val index = Random.nextInt(raffle.participants.count())
+
+        val index = if (raffle.participants.count() > 0) Random.nextInt(raffle.participants.count()) else throw NoParticipantsException()
 
         val participant = raffle.participants[index]
 
-        raffleParticipantService.checkParticipantAlreadyRaffled(participant.id!!, raffle.id.toString())
+        raffleParticipantService.checkParticipantAlreadyRaffled(participant.id!!, raffle.id!!)
 
         participant.raffledDate = Date()
 

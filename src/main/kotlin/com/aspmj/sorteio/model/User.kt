@@ -5,14 +5,12 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.persistence.SequenceGenerator
 
 @Entity
 data class User(
 
     @field:Id
-    @field:GeneratedValue(strategy = GenerationType.AUTO, generator = "participant_generator")
-    @field:SequenceGenerator(name = "participant_generator", sequenceName = "participant_sequence")
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @field:Column

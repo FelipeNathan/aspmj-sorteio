@@ -6,6 +6,7 @@ import com.aspmj.sorteio.repository.RaffleParticipantRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 class RaffleParticipantService(
@@ -13,7 +14,7 @@ class RaffleParticipantService(
 ) {
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    fun checkParticipantAlreadyRaffled(participantId: Long, raffleId: String) {
+    fun checkParticipantAlreadyRaffled(participantId: Long, raffleId: UUID) {
         if (raffleParticipantRepository.existsParticipantAlreadyRaffled(participantId, raffleId)) {
             throw ParticipantAlreadyRaffledException()
         }
