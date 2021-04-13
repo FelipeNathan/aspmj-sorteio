@@ -1,6 +1,5 @@
 package com.aspmj.sorteio.controller
 
-import com.aspmj.sorteio.exception.ParticipantAlreadyRaffledException
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
 import com.aspmj.sorteio.vo.RaffleVO
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import javax.validation.Valid
-import kotlin.random.Random
 
 @Controller
 @RequestMapping("/sorteios")

@@ -90,7 +90,7 @@ class RaffleService(
 
         val participant = raffle.participants[index]
 
-        raffleParticipantService.checkParticipantAlreadyRaffled(participant.id!!, raffle.id!!)
+        raffleParticipantService.checkParticipantAlreadyRaffled(participant, raffle.id!!)
 
         participant.raffledDate = Date()
 
