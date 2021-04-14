@@ -23,7 +23,7 @@ services:
         MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-admin}
         MYSQL_DATABASE: aspmj_sorteio
       volumes:
-        - aspmj-mysql
+        - aspmj-mysql:/var/lib/mysql
 
 volumes:
   aspmj-mysql:

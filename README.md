@@ -25,15 +25,25 @@ $ mvn clean install
 ```
 
 ### Executando direto com java
+Obs: Necessário ter MySQL já iniciado
 ```bash
 # Navegue até a pasta onde foi gerado o artefato
-$ cd target/
+$ cd target
 
 # Execute o jar
 $ java -jar sorteio-1.0.0.jar
 ```
 
 ### Executando com docker
+Na pasta raiz do projeto onde está o docker-compose
+
+Para primeira execução, inicialize o container do MySQL para as primeiras configurações do banco, volume, etc
+
+```bash
+$ docker-compose up -d aspmj-db
+```
+
+Caso já tenha inicializado uma vez, pode subir os 2 projetos juntos
 ```bash
 # Na pasta raiz do projeto, onde está o docker-compose
 
@@ -46,9 +56,9 @@ $ docker-compose up -d aspmj-db
 # Para subir somente o Sorteio (dettached)
 $ docker-compose up -d aspmj-app
 
-# Para parar os serviços sem excluir o container
+# Para parar os serviços sem excluir os containers
 $ docker-compose stop
 
-# Para parar os serviços excluindo container e networks
+# Para parar os serviços excluindo containers e networks
 $ docker-compose down
 ```
