@@ -46,9 +46,9 @@ $ docker-compose up -d aspmj-db
 # Para subir somente o Sorteio (dettached)
 $ docker-compose up -d aspmj-app
 
-# Para parar os serviços sem excluir o container (importante para não perder os dados do mysql)
-$ docker-compose down
-
-# Para parar os serviços excluindo container, imagens, networks e volumes (isto irá excluir os dados do mysql)
+# Para parar os serviços sem excluir o container
 $ docker-compose stop
+
+# Para parar os serviços excluindo container e networks
+$ docker-compose down
 ```
