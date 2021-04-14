@@ -12,10 +12,11 @@ import java.util.*
 
 @Service
 class RaffleParticipantService(
-    private val raffleParticipantRepository: RaffleParticipantRepository
+        private val raffleParticipantRepository: RaffleParticipantRepository
 ) {
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    @Throws(ParticipantAlreadyRaffledException::class)
     fun checkParticipantAlreadyRaffled(participant: RaffleParticipant, raffleId: UUID) {
         if (raffleParticipantRepository.existsParticipantAlreadyRaffled(participant.id!!, raffleId)) {
             throw ParticipantAlreadyRaffledException(participant.name)
@@ -24,7 +25,7 @@ class RaffleParticipantService(
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     fun existsByPhoneAndRaffle(phone: String, raffle: Raffle): Boolean {
-        return raffleParticipantRepository.existsByPhoneAndRaffle(phone,raffle)
+        return raffleParticipantRepository.existsByPhoneAndRaffle(phone, raffle)
     }
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)

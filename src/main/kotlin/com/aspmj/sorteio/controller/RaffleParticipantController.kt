@@ -1,7 +1,7 @@
 package com.aspmj.sorteio.controller
 
 import com.aspmj.sorteio.exception.DateLimitExceedException
-import com.aspmj.sorteio.exception.DateLimitStillNotBegin
+import com.aspmj.sorteio.exception.DateLimitStillNotBeginException
 import com.aspmj.sorteio.exception.ParticipantAlreadyExistsException
 import com.aspmj.sorteio.service.RaffleParticipantService
 import com.aspmj.sorteio.service.RaffleService
@@ -46,7 +46,7 @@ class RaffleParticipantController(
                 is ParticipantAlreadyExistsException -> {
                     model.addAttribute("error_title", "Que pena!")
                 }
-                is DateLimitStillNotBegin -> model.addAttribute("error_title", "Atenção!")
+                is DateLimitStillNotBeginException -> model.addAttribute("error_title", "Atenção!")
             }
 
             model.addAttribute("error", e.message)
