@@ -74,7 +74,7 @@
                 </tbody>
             </table>
         </div>
-        <a th:href="@{/sorteios/novo}" class="btn btn-warning text-primary font-weight-bold">Novo sorteio</a>
+        <a th:href="@{/sorteios/novo}" class="btn btn-warning text-primary font-weight-bold" th:if="${can_create_raffle}">Novo sorteio</a>
     </div>
 
     <th:block th:replace="scripts :: js" />

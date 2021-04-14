@@ -29,4 +29,11 @@ CREATE TABLE IF NOT EXISTS `raffle_participant` (
    PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  INSERT INTO user (ID, name, username, password) VALUES (1, 'Administrador', 'aspmj', '$2a$10$n/DUrEGm6t1CxQxw8gn8fu2XwBZ3T5kfnJ9e50QwRdu7oP1BrFg8.');
+  CREATE TABLE IF NOT EXISTS `feature_flag` (
+   `id` VARCHAR(255) NOT NULL,
+   `active` BOOLEAN NOT NULL DEFAULT FALSE,
+   PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  INSERT INTO user (id, name, username, password) VALUES (1, 'Administrador', 'aspmj', '$2a$10$n/DUrEGm6t1CxQxw8gn8fu2XwBZ3T5kfnJ9e50QwRdu7oP1BrFg8.');
+  INSERT INTO feature_flag (id, active) VALUES ('CREATE_RAFFLE', false);

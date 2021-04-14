@@ -1,5 +1,7 @@
 package com.aspmj.sorteio.controller
 
+import com.aspmj.sorteio.model.FeatureFlag
+import com.aspmj.sorteio.service.FeatureFlagService
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
 import com.aspmj.sorteio.vo.RaffleVO
@@ -17,12 +19,18 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/sorteios")
 class RaffleController(
-    val raffleService: RaffleService
+    val raffleService: RaffleService,
+    val featureFlagService: FeatureFlagService
 ) {
 
     @GetMapping
     fun raffles(model: ModelMap): String {
+
+        val canCreateFlag = featureFlagService.findById(FeatureFlag.FLAGS.CREATE_RAFFLE)?.active ?: false
+
         model.addAttribute("raffles", raffleService.loadRaffles())
+        model.addAttribute("can_create_raffle", canCreateFlag)
+
         return INDEX
     }
 
