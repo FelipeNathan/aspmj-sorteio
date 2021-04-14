@@ -34,7 +34,7 @@ $ java -jar sorteio-1.0.0.jar
 ```
 
 ### Executando com docker
-```dtd
+```bash
 # Na pasta raiz do projeto, onde está o docker-compose
 
 # Para subir o MySQL + Sorteio em modo "attached"
