@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body th:fragment="header(title)">
     <nav class="navbar bg-primary text-light">
         <span></span>
         <h2 class="font-weight-bold text-warning" th:text="${title}"></h2>
-        <form th:action="@{/logout}" th:method="post">
-            <input type="submit" value="Sair" class="btn btn-warning btn-sm text-primary font-weight-bold">
-        </form>
+        <div>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
+                <input type="submit" value="Sair" class="btn btn-warning btn-sm text-primary font-weight-bold">
+            </form>
+        </div>
     </nav>
     <div class="d-flex justify-content-center justify-content-md-start ">
         <img th:src="@{/images/aspmj-logo.png}" class="logo" />
