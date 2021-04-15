@@ -30,7 +30,7 @@ class RaffleService(
         val raffle = Raffle(
             id = vo.id,
             title = vo.title,
-            beginDate = vo.beginDate!!.maxTime(),
+            beginDate = vo.beginDate!!,
             endDate = vo.endDate!!.maxTime(),
             raffleDate = vo.raffleDate!!.maxTime()
         )
