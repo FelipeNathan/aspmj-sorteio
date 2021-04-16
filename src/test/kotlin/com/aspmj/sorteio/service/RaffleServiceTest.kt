@@ -55,7 +55,7 @@ class RaffleServiceTest {
         val raffle = argumentCaptor.value
         assertEquals(raffle.id, vo.id)
         assertEquals(raffle.title, vo.title)
-        assertEquals(raffle.beginDate, vo.beginDate.maxTime())
+        assertEquals(raffle.beginDate, vo.beginDate)
         assertEquals(raffle.endDate, vo.endDate.maxTime())
         assertEquals(raffle.raffleDate, vo.raffleDate.maxTime())
     }

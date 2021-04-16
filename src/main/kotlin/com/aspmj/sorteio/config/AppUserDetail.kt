@@ -6,10 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails
 class AppUserDetail(
     private val username: String,
     private val password: String,
-    private val authority: List<GrantedAuthority>
+    private val authority: MutableList<out GrantedAuthority> = mutableListOf()
 ) : UserDetails {
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf()
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = authority
 
     override fun getPassword(): String = password
 

@@ -35,5 +35,6 @@ CREATE TABLE IF NOT EXISTS `raffle_participant` (
    PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  INSERT INTO user (id, name, username, password) VALUES (1, 'Administrador', 'aspmj', '$2a$10$n/DUrEGm6t1CxQxw8gn8fu2XwBZ3T5kfnJ9e50QwRdu7oP1BrFg8.');
+  INSERT INTO user (id, name, username, password) VALUES (1, 'Administrador', 'raffle_admin', '$2a$10$n/DUrEGm6t1CxQxw8gn8fu2XwBZ3T5kfnJ9e50QwRdu7oP1BrFg8.');
+  INSERT INTO user (id, name, username, password) VALUES (2, 'ASPMJ User', 'aspmj', '$2a$10$eTpR00.jjewwjrm43fTAKOxm3lKhlrjxBbMmpCXhGz7kQ0VP7dACC');
   INSERT INTO feature_flag (id, active) VALUES ('CREATE_RAFFLE', false);
