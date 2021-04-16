@@ -1,10 +1,13 @@
 package com.aspmj.sorteio.controller
 
+import com.aspmj.sorteio.config.ROLES
 import com.aspmj.sorteio.model.FeatureFlag
 import com.aspmj.sorteio.service.FeatureFlagService
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
 import com.aspmj.sorteio.vo.RaffleVO
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.validation.BindingResult
@@ -20,13 +23,14 @@ import javax.validation.Valid
 @RequestMapping("/sorteios")
 class RaffleController(
     val raffleService: RaffleService,
-    val featureFlagService: FeatureFlagService
+    val featureFlagService: FeatureFlagService,
 ) {
 
     @GetMapping
-    fun raffles(model: ModelMap): String {
+    fun raffles(model: ModelMap, auth: Authentication): String {
 
-        val canCreateFlag = featureFlagService.findById(FeatureFlag.FLAGS.CREATE_RAFFLE)?.active ?: false
+        val isAdmin = auth.authorities.contains(SimpleGrantedAuthority(ROLES.ADMIN.role))
+        val canCreateFlag = (featureFlagService.findById(FeatureFlag.FLAGS.CREATE_RAFFLE)?.active ?: false || isAdmin)
 
         model.addAttribute("raffles", raffleService.loadRaffles())
         model.addAttribute("can_create_raffle", canCreateFlag)
