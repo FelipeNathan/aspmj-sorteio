@@ -7,7 +7,7 @@
     <div class="form-group">
         <label th:text="'Descrição: '" for="title"></label>
         <input th:field="*{title}" th:errorclass="is-invalid" type="text" class="form-control"
-            placeholder="Dia das Mães" required />
+            placeholder="Dia das Mães" required th:attr="disabled=${can_create_raffle == false}"/>
         <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></p>
     </div>
 
@@ -21,7 +21,7 @@
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
                     <input th:field="*{beginDate}" th:errorclass="is-invalid" type="text" autocomplete="off"
-                        class="form-control" required />
+                        class="form-control" required th:attr="disabled=${can_create_raffle == false}"/>
                     <p th:if="${#fields.hasErrors('beginDate')}" th:errors="*{beginDate}" class="invalid-feedback"></p>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
                     <input th:field="*{endDate}" th:errorclass="is-invalid" type="text" autocomplete="off"
-                        class="form-control" required />
+                        class="form-control" required th:attr="disabled=${can_create_raffle == false}"/>
                     <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="invalid-feedback"></p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
             </div>
             <input th:field="*{raffleDate}" th:errorclass="is-invalid" type="text" autocomplete="off"
-                class="form-control" required />
+                class="form-control" required th:attr="disabled=${can_create_raffle == false}"/>
             <p th:if="${#fields.hasErrors('raffleDate')}" th:errors="*{raffleDate}" class="invalid-feedback"></p>
         </div>
     </div>
