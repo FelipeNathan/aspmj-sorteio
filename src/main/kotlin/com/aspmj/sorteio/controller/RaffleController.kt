@@ -1,13 +1,10 @@
 package com.aspmj.sorteio.controller
 
-import com.aspmj.sorteio.config.ROLES
 import com.aspmj.sorteio.model.FeatureFlag
 import com.aspmj.sorteio.service.FeatureFlagService
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
 import com.aspmj.sorteio.vo.RaffleVO
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.validation.BindingResult
@@ -27,10 +24,9 @@ class RaffleController(
 ) {
 
     @GetMapping
-    fun raffles(model: ModelMap, auth: Authentication): String {
+    fun raffles(model: ModelMap): String {
 
-        val isAdmin = auth.authorities.contains(SimpleGrantedAuthority(ROLES.ADMIN.role))
-        val canCreateFlag = (featureFlagService.findById(FeatureFlag.FLAGS.CREATE_RAFFLE)?.active ?: false || isAdmin)
+        val canCreateFlag = featureFlagService.checkPermission(FeatureFlag.FLAGS.CREATE_RAFFLE)
 
         model.addAttribute("raffles", raffleService.loadRaffles())
         model.addAttribute("can_create_raffle", canCreateFlag)
@@ -40,13 +36,23 @@ class RaffleController(
 
     @GetMapping("/novo")
     fun new(model: ModelMap): String {
+
+        val canCreateFlag = featureFlagService.checkPermission(FeatureFlag.FLAGS.CREATE_RAFFLE)
+        if (!canCreateFlag)
+            return REDIRECT_SORTEIOS
+
         model.addAttribute("raffle", RaffleVO())
         return NEW_PAGE
     }
 
     @GetMapping("/editar/{raffleId}")
     fun edit(@PathVariable("raffleId") raffleId: String, model: ModelMap): String {
+
+        val canCreateFlag = featureFlagService.checkPermission(FeatureFlag.FLAGS.CREATE_RAFFLE)
+
         model.addAttribute("raffle", raffleService.findRaffle(raffleId))
+        model.addAttribute("can_create_raffle", canCreateFlag)
+
         return NEW_PAGE
     }
 
