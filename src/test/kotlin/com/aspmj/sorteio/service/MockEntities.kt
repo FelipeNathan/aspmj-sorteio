@@ -7,7 +7,7 @@ import com.aspmj.sorteio.vo.RaffleParticipantVO
 import com.aspmj.sorteio.vo.RaffleVO
 import java.util.*
 
-fun newParticipant(raffle: Raffle) = RaffleParticipant(1, "Felipe", "email@email.com", "(47) 99999-9999", raffle)
+fun newParticipant(raffle: Raffle) = RaffleParticipant(1, "Felipe", "email@email.com", "(47) 99999-9999", raffle, null)
 fun newRaffle(beginDate: Date = Date(), endDate: Date = Date(), raffleDate: Date = Date()) = Raffle(UUID.randomUUID(), "Sorteiasso", beginDate.maxTime(), endDate.maxTime(), raffleDate.maxTime())
 
 fun newParticipantVO(date: Date? = null, raffleId: String = UUID.randomUUID().toString()) = RaffleParticipantVO(2, "Nathan", "email@liame.moc", "(99) 47474-4747", raffleId, date)

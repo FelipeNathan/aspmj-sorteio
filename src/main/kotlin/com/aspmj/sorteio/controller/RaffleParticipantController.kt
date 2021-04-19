@@ -38,7 +38,7 @@ class RaffleParticipantController(
 
         try {
             val newParticipant = raffleService.addParticipantToRaffle(participant)
-            model.addAttribute("participant_number", newParticipant.id)
+            model.addAttribute("participant_number", newParticipant.number)
         } catch (e: Exception) {
 
             when (e) {

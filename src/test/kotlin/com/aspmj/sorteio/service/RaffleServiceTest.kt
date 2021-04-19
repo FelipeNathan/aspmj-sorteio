@@ -117,7 +117,7 @@ class RaffleServiceTest {
     }
 
     @Test
-    fun `when add participant then new Id`() {
+    fun `when add participant then new Id and Number plus one`() {
 
         val argumentCaptor = ArgumentCaptor.forClass(RaffleParticipant::class.java)
         val raffle = newRaffle(beginDate = yesterday, endDate = tomorrow, raffleDate = tomorrow)
@@ -125,6 +125,7 @@ class RaffleServiceTest {
 
         `when`(raffleRepository.getOne(UUID.fromString(participantVO.raffleId))).thenReturn(raffle)
         `when`(raffleParticipantService.existsByPhoneAndRaffle(participantVO.phone, raffle)).thenReturn(false)
+        `when`(raffleParticipantService.getLastNumberByRaffle(raffle)).thenReturn(5)
 
         raffleService.addParticipantToRaffle(participantVO)
 
@@ -134,6 +135,7 @@ class RaffleServiceTest {
         assertEquals(participant.phone, participantVO.phone)
         assertEquals(participant.email, participantVO.email)
         assertEquals(participant.raffle.id.toString(), participantVO.raffleId)
+        assertEquals(participant.number, 6)
     }
 
     @Test

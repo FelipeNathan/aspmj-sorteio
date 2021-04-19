@@ -60,5 +60,6 @@ class RaffleParticipantServiceTest {
         assertEquals(vo.email, participant.email)
         assertEquals(vo.raffleId, participant.raffle.id.toString())
         assertEquals(vo.raffledDate, participant.raffledDate)
+        assertEquals(vo.number, participant.number)
     }
 }

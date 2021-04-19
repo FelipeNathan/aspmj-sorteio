@@ -5,6 +5,7 @@ import com.aspmj.sorteio.model.RaffleParticipant
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import org.springframework.lang.Nullable
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -22,4 +23,8 @@ interface RaffleParticipantRepository : JpaRepository<RaffleParticipant, Long> {
         @Param("participantId") raffleParticipantId: Long,
         @Param("raffleId") raffleId: UUID
     ): Boolean
+
+    @Nullable
+    @Query("SELECT number FROM raffle_participant rp WHERE rp.raffle_id = :raffleId ORDER BY number DESC LIMIT 1", nativeQuery = true)
+    fun findLastNumberByRaffle(raffleId: String): Int?
 }

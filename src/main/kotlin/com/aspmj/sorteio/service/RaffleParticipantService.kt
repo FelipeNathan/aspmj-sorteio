@@ -30,4 +30,7 @@ class RaffleParticipantService(
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     fun findById(id: Long): RaffleParticipantVO = RaffleParticipantVO(raffleParticipantRepository.getOne(id))
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    fun getLastNumberByRaffle(raffle: Raffle) = raffleParticipantRepository.findLastNumberByRaffle(raffle.id!!.toString())
 }

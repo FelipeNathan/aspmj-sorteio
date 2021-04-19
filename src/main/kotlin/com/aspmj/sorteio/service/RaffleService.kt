@@ -58,17 +58,20 @@ class RaffleService(
                     raffle
                 )
             ) throw ParticipantAlreadyExistsException() else {
+                val lastNumber = raffleParticipantService.getLastNumberByRaffle(raffle)
                 RaffleParticipant(
                     name = vo.name,
                     phone = vo.phone,
                     email = vo.email,
-                    raffle = raffle
+                    raffle = raffle,
+                    number = (lastNumber ?: 0) + 1
                 )
             }
 
         raffleParticipantRepository.save(participant)
 
         vo.id = participant.id
+        vo.number = participant.number
         return vo
     }
 

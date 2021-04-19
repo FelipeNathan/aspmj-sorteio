@@ -1,0 +1,1 @@
+ALTER TABLE `raffle_participant` ADD COLUMN `number` INT

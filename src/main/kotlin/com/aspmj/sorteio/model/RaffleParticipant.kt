@@ -30,5 +30,8 @@ data class RaffleParticipant(
     val raffle: Raffle,
 
     @field:Column
-    var raffledDate: Date? = null
+    var raffledDate: Date? = null,
+
+    @field:Column
+    val number: Int = 1
 )

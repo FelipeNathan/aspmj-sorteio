@@ -20,7 +20,9 @@ data class RaffleParticipantVO(
     @field:NotNull(message = "Sorteio obrigatório")
     var raffleId: String? = null,
 
-    var raffledDate: Date? = null
+    var raffledDate: Date? = null,
+
+    var number: Int? = 0
 ) : Comparable<RaffleParticipantVO> {
     constructor(p: RaffleParticipant) : this(
         p.id,
@@ -28,7 +30,8 @@ data class RaffleParticipantVO(
         p.email,
         p.phone,
         p.raffle.id.toString(),
-        p.raffledDate
+        p.raffledDate,
+        p.number
     )
 
     override fun compareTo(other: RaffleParticipantVO): Int {
