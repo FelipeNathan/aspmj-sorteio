@@ -1,0 +1,1 @@
+ALTER TABLE raffle_participant ADD CONSTRAINT `unique_number_by_raffle` UNIQUE(raffle_id, number)
