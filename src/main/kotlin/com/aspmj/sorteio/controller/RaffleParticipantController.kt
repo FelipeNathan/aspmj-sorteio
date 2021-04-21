@@ -6,6 +6,8 @@ import com.aspmj.sorteio.exception.ParticipantAlreadyExistsException
 import com.aspmj.sorteio.service.RaffleParticipantService
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.validation.BindingResult
@@ -30,15 +32,16 @@ class RaffleParticipantController(
         model: ModelMap
     ): String {
 
-        model.addAttribute("raffle", raffleService.findRaffle(participant.raffleId!!))
-
-        if (bindingResult.hasErrors()) {
-            return NEW_PAGE
-        }
-
         try {
+            model.addAttribute("raffle", raffleService.findRaffle(participant.raffleId!!))
+
+            if (bindingResult.hasErrors()) {
+                return NEW_PAGE
+            }
+
             val newParticipant = raffleService.addParticipantToRaffle(participant)
             model.addAttribute("participant_number", newParticipant.number)
+
         } catch (e: Exception) {
 
             when (e) {
@@ -47,9 +50,15 @@ class RaffleParticipantController(
                     model.addAttribute("error_title", "Que pena!")
                 }
                 is DateLimitStillNotBeginException -> model.addAttribute("error_title", "Atenção!")
+                else -> {
+                    model.addAttribute("error_title", "Ops!")
+                    model.addAttribute("error", "Houve uma falha no cadastro, por favor tente novamente!")
+                    LOG.error(e.message, e)
+                }
             }
 
-            model.addAttribute("error", e.message)
+            if (!model.containsAttribute("error"))
+                model.addAttribute("error", e.message)
         }
 
         return CREATED_PAGE
@@ -65,5 +74,6 @@ class RaffleParticipantController(
     companion object {
         const val NEW_PAGE = "participant/new"
         const val CREATED_PAGE = "participant/created"
+        val LOG: Logger = LoggerFactory.getLogger(RaffleParticipantController::class.java)
     }
 }

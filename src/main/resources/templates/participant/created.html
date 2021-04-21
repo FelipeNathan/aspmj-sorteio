@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div th:replace="components/header :: header(${raffle.title})"></div>
+    <div th:replace="components/header :: header(${raffle != null ? raffle.title : 'Ops'})"></div>
 
     <div class="container">
         <div class="row">
