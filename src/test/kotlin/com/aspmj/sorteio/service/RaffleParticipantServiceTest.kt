@@ -3,6 +3,7 @@ package com.aspmj.sorteio.service
 import com.aspmj.sorteio.MockitoHelper
 import com.aspmj.sorteio.exception.DateLimitExceedException
 import com.aspmj.sorteio.exception.DateLimitStillNotBeginException
+import com.aspmj.sorteio.exception.NoParticipantsException
 import com.aspmj.sorteio.exception.ParticipantAlreadyExistsException
 import com.aspmj.sorteio.exception.ParticipantAlreadyRaffledException
 import com.aspmj.sorteio.model.RaffleParticipant
@@ -143,5 +144,54 @@ class RaffleParticipantServiceTest {
         `when`(service.existsByPhoneAndRaffle(participantVO.phone, raffle)).thenReturn(true)
 
         assertThrows<ParticipantAlreadyExistsException> { service.sendParticipantToQueue(participantVO) }
+    }
+
+    @Test
+    fun `when have no participants then throw NoParticipantsException`() {
+
+        val raffle = newRaffle()
+        `when`(raffleRepository.getOne(MockitoHelper.anyObject())).thenReturn(raffle)
+
+        assertThrows<NoParticipantsException> { service.raffleParticipant(UUID.randomUUID().toString()) }
+
+        Mockito.verify(service, Mockito.never()).checkParticipantAlreadyRaffled(MockitoHelper.anyObject(), MockitoHelper.anyObject())
+        Mockito.verify(repository, Mockito.never()).save(MockitoHelper.anyObject())
+    }
+
+    @Test
+    fun `when participant already raffled then throw ParticipantAlreadyRaffledException`() {
+
+        val raffle = newRaffle()
+        raffle.participants.add(newParticipant(raffle))
+
+        `when`(raffleRepository.getOne(MockitoHelper.anyObject())).thenReturn(raffle)
+        `when`(service.checkParticipantAlreadyRaffled(MockitoHelper.anyObject(), MockitoHelper.anyObject())).thenThrow(ParticipantAlreadyRaffledException("Jack Sparrow"))
+
+        assertThrows<ParticipantAlreadyRaffledException> { service.raffleParticipant(UUID.randomUUID().toString()) }
+
+        Mockito.verify(repository, Mockito.never()).save(MockitoHelper.anyObject())
+    }
+
+    @Test
+    fun `when participant not raffled then return ParticipantVO with raffledDate`() {
+
+        val raffle = newRaffle()
+        val participant = newParticipant(raffle)
+        raffle.participants.add(participant)
+
+        `when`(raffleRepository.getOne(MockitoHelper.anyObject())).thenReturn(raffle)
+        Mockito.doNothing().`when`(service).checkParticipantAlreadyRaffled(MockitoHelper.anyObject(), MockitoHelper.anyObject())
+
+        val vo = service.raffleParticipant(UUID.randomUUID().toString())
+
+        Mockito.verify(repository).save(participant)
+        assertEquals(vo.id, participant.id)
+        assertEquals(vo.name, participant.name)
+        assertEquals(vo.phone, participant.phone)
+        assertEquals(vo.email, participant.email)
+        assertEquals(vo.raffleId, participant.raffle.id.toString())
+        assertEquals(vo.raffledDate, participant.raffledDate)
+        assertNotNull(vo.raffledDate)
+        assertNotNull(participant.raffledDate)
     }
 }
