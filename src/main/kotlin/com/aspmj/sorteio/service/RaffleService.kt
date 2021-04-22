@@ -40,44 +40,6 @@ class RaffleService(
         raffleRepository.save(raffle)
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-    @Throws(DateLimitStillNotBeginException::class, DateLimitExceedException::class, ParticipantAlreadyExistsException::class)
-    fun addParticipantToRaffle(vo: RaffleParticipantVO): RaffleParticipantVO {
-        val raffle = raffleRepository.getOne(UUID.fromString(vo.raffleId!!))
-
-        val today = Date()
-
-        if (today.before(raffle.beginDate)) {
-            throw DateLimitStillNotBeginException()
-        }
-
-        if (today.after(raffle.endDate) || today.after(raffle.raffleDate)) {
-            throw DateLimitExceedException()
-        }
-
-        val participant =
-            if (raffleParticipantService.existsByPhoneAndRaffle(
-                    vo.phone,
-                    raffle
-                )
-            ) throw ParticipantAlreadyExistsException() else {
-                val lastNumber = raffleParticipantService.getLastNumberByRaffle(raffle)
-                RaffleParticipant(
-                    name = vo.name,
-                    phone = vo.phone,
-                    email = vo.email,
-                    raffle = raffle,
-                    number = (lastNumber ?: 0) + 1
-                )
-            }
-
-        raffleParticipantRepository.save(participant)
-
-        vo.id = participant.id
-        vo.number = participant.number
-        return vo
-    }
-
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     fun loadRaffles(): List<RaffleVO> {
         return raffleRepository.findAll().map {

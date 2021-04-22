@@ -12,6 +12,7 @@ services:
       DB_URL: jdbc:mysql://aspmj-db:3306/aspmj_sorteio
       DB_USERNAME: ${DB_USERNAME:-root}
       DB_PASSWORD: ${DB_PASSWORD:-admin}
+      RABBITMQ_URL: amqp://guest:guest@aspmj-rabbitmq
       SPRING_PROFILE: prod
 
   aspmj-db:
@@ -24,6 +25,13 @@ services:
         MYSQL_DATABASE: aspmj_sorteio
       volumes:
         - aspmj-mysql:/var/lib/mysql
+
+  aspmj-rabbitmq:
+    image: rabbitmq:management
+    container_name: aspmj-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 volumes:
   aspmj-mysql:
