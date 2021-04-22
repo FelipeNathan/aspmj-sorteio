@@ -2,7 +2,6 @@ package com.aspmj.sorteio.service
 
 import com.aspmj.sorteio.exception.DateLimitExceedException
 import com.aspmj.sorteio.exception.DateLimitStillNotBeginException
-import com.aspmj.sorteio.exception.NoParticipantsException
 import com.aspmj.sorteio.extension.maxTime
 import com.aspmj.sorteio.model.Raffle
 import com.aspmj.sorteio.repository.RaffleParticipantRepository
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
-import kotlin.random.Random
 
 @Service
 class RaffleService(
