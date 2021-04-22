@@ -3,6 +3,7 @@ package com.aspmj.sorteio.controller
 import com.aspmj.sorteio.exception.DateLimitExceedException
 import com.aspmj.sorteio.exception.DateLimitStillNotBeginException
 import com.aspmj.sorteio.exception.ParticipantAlreadyExistsException
+import com.aspmj.sorteio.exception.RaffleException
 import com.aspmj.sorteio.service.RaffleParticipantService
 import com.aspmj.sorteio.service.RaffleService
 import com.aspmj.sorteio.vo.RaffleParticipantVO
@@ -33,25 +34,23 @@ class RaffleParticipantController(
     ): String {
 
         try {
-            model.addAttribute("raffle", raffleService.findRaffle(participant.raffleId!!))
 
             if (bindingResult.hasErrors()) {
+                model.addAttribute("raffle", raffleService.findRaffleVO(participant.raffleId!!))
                 return NEW_PAGE
             }
 
-            val newParticipant = raffleService.addParticipantToRaffle(participant)
-            model.addAttribute("participant_number", newParticipant.number)
+            val newParticipant = raffleParticipantService.sendParticipantToQueue(participant)
+            model.addAttribute("raffle", raffleService.findRaffleVO(participant.raffleId!!))
+            model.addAttribute("participant_number", newParticipant?.number)
 
         } catch (e: Exception) {
 
+            model.addAttribute("error_title", "Ops!")
+
             when (e) {
-                is DateLimitExceedException,
-                is ParticipantAlreadyExistsException -> {
-                    model.addAttribute("error_title", "Que pena!")
-                }
-                is DateLimitStillNotBeginException -> model.addAttribute("error_title", "Atenção!")
+                is RaffleException -> model.addAttribute("error", e.message)
                 else -> {
-                    model.addAttribute("error_title", "Ops!")
                     model.addAttribute("error", "Houve uma falha no cadastro, por favor tente novamente!")
                     LOG.error(e.message, e)
                 }

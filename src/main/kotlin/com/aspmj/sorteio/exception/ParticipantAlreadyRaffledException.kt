@@ -1,3 +1,3 @@
 package com.aspmj.sorteio.exception
 
-class ParticipantAlreadyRaffledException(name: String) : Exception("Participante $name foi sorteado novamente")
+class ParticipantAlreadyRaffledException(name: String) : RaffleException("Participante $name foi sorteado novamente")

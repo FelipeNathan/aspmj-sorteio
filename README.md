@@ -7,6 +7,7 @@ Software dedicado à Associação dos Servidores Públicos de Joinville para ger
 * MySQL
 * Maven
 * Java11 (caso não for utilizar docker)
+* RabbitMQ
 
 ### Caso utilziar Docker
 * Docker
@@ -17,6 +18,9 @@ Software dedicado à Associação dos Servidores Públicos de Joinville para ger
 * DB_URL
 * DB_USERNAME
 * DB_PASSWORD
+
+### Url de conexão com RabbitMQ
+* RABBITMQ_URL
 
 ## Execução
 ```bash 
@@ -47,7 +51,7 @@ Caso já tenha inicializado uma vez, pode subir os 2 projetos juntos
 ```bash
 # Na pasta raiz do projeto, onde está o docker-compose
 
-# Para subir o MySQL + Sorteio em modo "attached"
+# Para subir o MySQL + Sorteio + RabbitMQ em modo "attached"
 $ docker-compose up
 
 # Para subir somente o MySQL (dettached)
@@ -55,6 +59,9 @@ $ docker-compose up -d aspmj-db
 
 # Para subir somente o Sorteio (dettached)
 $ docker-compose up -d aspmj-app
+
+# Para subir somente o RabbitMQ (dettached)
+$ docker-compose up -d aspmj-rabbitmq
 
 # Para parar os serviços sem excluir os containers
 $ docker-compose stop
