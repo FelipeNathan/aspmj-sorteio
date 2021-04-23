@@ -4,8 +4,8 @@ import org.mockito.Mockito
 
 object MockitoHelper {
 
-    fun <T> anyObject(): T {
-        Mockito.any<T>()
+    fun <T> anyObject(type: Class<T>? = null): T {
+        if (type == null ) Mockito.any<T>() else Mockito.any<T>(type)
         return uninitialized()
     }
 
