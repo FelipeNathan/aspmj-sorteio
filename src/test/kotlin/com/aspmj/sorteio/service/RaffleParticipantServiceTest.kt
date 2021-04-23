@@ -10,6 +10,7 @@ import com.aspmj.sorteio.exception.RaffleException
 import com.aspmj.sorteio.repository.RaffleParticipantRepository
 import com.aspmj.sorteio.repository.RaffleRepository
 import com.aspmj.sorteio.vo.RaffleParticipantVO
+
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -18,9 +19,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.any
 import org.mockito.Mockito.anyLong
-import org.mockito.Mockito.anyString
 import org.mockito.Spy
 import org.springframework.amqp.core.DirectExchange
 import org.springframework.amqp.rabbit.core.RabbitTemplate

@@ -90,7 +90,6 @@ class RaffleServiceTest {
 
         `when`(raffleRepository.getOne(UUID.fromString(participantVO.raffleId))).thenReturn(raffle)
 
-        assertDoesNotThrow {  raffleService.validateRaffle(participantVO.raffleId!!) }
+        assertDoesNotThrow { raffleService.validateRaffle(participantVO.raffleId!!) }
     }
-
 }
