@@ -6,7 +6,7 @@ Software dedicado à Associação dos Servidores Públicos de Joinville para ger
 
 * MySQL
 * Maven
-* Java11 (caso não for utilizar docker)
+* Java11
 * RabbitMQ
 
 ### Caso utilziar Docker
