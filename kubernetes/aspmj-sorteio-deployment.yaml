@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: aspmj-sorteio
+  labels:
+    app: aspmj-sorteio
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: aspmj-sorteio
+
+  strategy: {}
+
+  template:
+    metadata:
+      labels:
+        app: aspmj-sorteio
+
+    spec:
+      containers:
+      - image: ghcr.io/felipenathan/aspmj-sorteio/sorteio
+        name: sorteio
+        resources: {}
+        ports:
+         - containerPort: 8080
+
+        env:
+          - name: DB_URL
+            value: jdbc:mysql://192.168.0.16:3307/aspmj_sorteio
+
+          - name: DB_USERNAME
+            value: root
+
+          - name: DB_PASSWORD
+            value: admin
+
+          - name: RABBITMQ_URL
+            value: amqp://guest:guest@192.168.0.16
+
+          - name: SPRING_PROFILE
+            value: prod
